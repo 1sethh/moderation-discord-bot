@@ -6,7 +6,7 @@ start = time.time()
 with open("config.json", "r") as config:
     c = json.load(config)
 
-client = commands.Bot(command_prefix = "/", intents = discord.Intents.all(), help_command = None, case_insensitive = True, activity  = discord.Activity(type = discord.ActivityType.listening, name = "/help"), allowed_mentions = discord.AllowedMentions(roles=True, users=True, everyone=False)) # command_prefix is not gonna be used, but is required sadly
+client = commands.Bot(command_prefix = "/", intents = discord.Intents.all(), help_command = None, case_insensitive = True, activity = discord.Activity(type = discord.ActivityType.listening, name = "/help"), allowed_mentions = discord.AllowedMentions(roles=True, users=True, everyone=False)) # command_prefix is not gonna be used, but is required sadly
 
 @client.event
 async def on_ready():
@@ -24,7 +24,6 @@ async def cogs():
                 await client.load_extension(f"cogs.{folder}.{file[:-3]}")
 
 async def main():
-    await cogs()
-    await client.start(c["token"])
+    await cogs(), await client.start(c["token"])
 
 asyncio.run(main())
